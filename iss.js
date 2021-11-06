@@ -19,6 +19,28 @@ const fetchMyIP = function(callback) {
   });
 };
 
-module.exports = { fetchMyIP };
+const fetchCoordsByIP = function(ip, callback) {
+  request(`https://api.freegeoip.app/json/${ip}?apikey=d4bc7b80-3e3e-11ec-94d6-f3825dc47f56`, (error, response, body) => {
+    if (error) {
+      callback(error, null);
+      return;
+    }
+    // if non-200 status, assume server error
+    if (response.statusCode !== 200) {
+      const msg = `Status Code ${response.statusCode} when fetching coordinates. Response: ${body}`;
+      callback(msg, null);
+      return;
+    }
+    data = JSON.parse(body);
+    callback(null, data);
+  });
+};
+const fetchISSFlyOverTimes = function (coords, callback) {
+request(`https://iss-pass.herokuapp.com/json/?lat=43.64&lon=-79.4331`, (error, response, body) => {
+    data = JSON.parse(body);
+    console.log(data)
+})
+}
+module.exports = { fetchMyIP, fetchCoordsByIP, fetchISSFlyOverTimes };
 
 
