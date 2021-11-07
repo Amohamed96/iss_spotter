@@ -17,10 +17,23 @@ fetchCoordsByIP("206.223.174.242", (error, ip) => {
 console.log(coords)
 });
 
-fetchISSFlyOverTimes(coords, (error, ip) => {
+
+const exampleCoords = { latitude: '49.27670', longitude: '-123.13000' };
+
+fetchISSFlyOverTimes(exampleCoords, (error, passTimes) => {
   if (error) {
-    console.log("404 not found" , error);
+    console.log("It didn't work!" , error);
     return;
   }
-  
-  })
+
+  console.log('It worked! Returned flyover times:' , passTimes);
+});
+// const { nextISSTimesForMyLocation } = require('./iss');
+
+// nextISSTimesForMyLocation((error, passTimes) => {
+//   if (error) {
+//     return console.log("It didn't work!", error);
+//   }
+//   // success, print out the deets!
+//   console.log(passTimes);
+// });
